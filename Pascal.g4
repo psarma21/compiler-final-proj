@@ -285,17 +285,18 @@ READLN    : R E A D L N ;
 PROCEDURE : P R O C E D U R E ;
 FUNCTION  : F U N C T I O N ;
 LIST      : L I S T ;
+
 PRINTDIRPATH : P R I N T D I R P A T H ;
-CREATEFILE : C R E A T E F I L E ;
-CREATEDIR: C R E A T E D I R ;
-REMOVEFILE : R E M O V E F I L E ;
-REMOVEDIR : R E M O V E D I R ;
-EXEC      : E X E C ;
-CHANGEDIR : C H A N G E D I R ;
-OPEN      : O P E N ;
-COPY      : C O P Y ;
-PRINTFILE : P R I N T F I L E ;
-MOVE      : M O V E ;
+CREATEFILE   : C R E A T E F I L E ;
+CREATEDIR    : C R E A T E D I R ;
+REMOVEFILE   : R E M O V E F I L E ;
+REMOVEDIR    : R E M O V E D I R ;
+EXEC         : E X E C ;
+CHANGEDIR    : C H A N G E D I R ;
+OPEN         : O P E N ;
+COPY         : C O P Y ;
+PRINTFILE    : P R I N T F I L E ;
+MOVE         : M O V E ;
 
 IDENTIFIER : [a-zA-Z][a-zA-Z0-9]* ;
 INTEGER    : [0-9]+ ;

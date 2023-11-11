@@ -1,1 +1,1 @@
-Project Bashcal: A compiler for a new language developed by combining parts of Pascal and Bash together. 
+Project Bashcal: A compiler developed for "Bashcal", a language created by combining parts of Pascal and Bash. 
