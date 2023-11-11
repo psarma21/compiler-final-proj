@@ -1,0 +1,44 @@
+program Sample;
+
+procedure firstFile;
+    begin
+        PRINTDIRPATH;
+        CREATEDIR 'folder1';
+
+        LIST;
+
+        CHANGEDIR 'folder1';
+        CREATEFILE 'file1.java';
+        OPEN 'file1.java';
+        EXEC 'file1.java';
+        PRINTFILE 'file1.java';
+    end;
+
+procedure secondFile;
+    begin
+        PRINTDIRPATH;
+        CHANGEDIR '..';
+
+        LIST;
+
+        CREATEDIR 'folder2';
+        CHANGEDIR 'folder2';
+        COPY '../folder1/file1.java' 'file2.java';
+        OPEN 'file2.java';
+        EXEC 'file2.java';
+        PRINTFILE 'file2.java';
+    end;
+
+procedure removeSecondFile;
+    begin
+        REMOVEFILE 'file2.java';
+        REMOVEFILE 'file2.class';
+        CHANGEDIR '..';
+        REMOVEDIR 'folder2';
+    end;
+
+begin
+   firstFile();
+   secondFile();
+   removeSecondFile();
+end.
