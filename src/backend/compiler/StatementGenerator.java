@@ -306,6 +306,102 @@ public class StatementGenerator extends CodeGenerator
         emit(INVOKESTATIC, invokeStaticInput);
     }
 
+    public void emitList(PascalParser.ListStatementContext listCtx)
+    {
+        /***** Complete this method. *****/
+        // Note: Lines 313-316 must be there
+        Label procedureTopLabel  = new Label();
+        Label procedureExitLabel = new Label();
+
+        emitLabel(procedureTopLabel);
+
+        // Note: Lines 319-326 must be there
+        emit(NEW, "Api");
+        emit(DUP);
+        emit(INVOKESPECIAL, "Api/<init>()V");
+        if (listCtx.stringConstant() != null) {
+            String path = listCtx.stringConstant().getText();
+            emit(LDC, "\"" + path.substring(1, path.length()-1) + "\"");
+            // TODO - Change function name here
+            emit(INVOKESTATIC, "Api/runListStatement(Ljava/lang/String;)V");
+        }
+        else {
+            emit(INVOKESTATIC, "Api/runListStatement()V");
+        }
+
+        // Note: Lines 332 and 334 must be there
+        emit(GOTO, procedureExitLabel);
+
+        emitLabel(procedureExitLabel);
+    }
+
+    public void emitPwd(PascalParser.PwdStatementContext pwdCtx)
+    {
+        /***** Complete this method. *****/
+
+    }
+
+    public void emitCreateFile(PascalParser.CreateFileStatementContext createFileCtx)
+    {
+        /***** Complete this method. *****/
+
+    }
+
+    public void emitCreateDir(PascalParser.CreateDirStatementContext createDirCtx)
+    {
+        /***** Complete this method. *****/
+
+    }
+
+
+
+    public void emitRemoveFile(PascalParser.RemoveFileStatementContext removeFileCtx)
+    {
+        /***** Complete this method. *****/
+
+    }
+
+    public void emitRemoveDir(PascalParser.RemoveDirStatementContext removeDirCtx)
+    {
+        /***** Complete this method. *****/
+
+    }
+
+    public void emitExec(PascalParser.ExecStatementContext execCtx)
+    {
+        /***** Complete this method. *****/
+
+    }
+    public void emitChDir(PascalParser.ChDirStatementContext chDirCtx)
+    {
+        /***** Complete this method. *****/
+
+    }
+
+    public void emitOpen(PascalParser.OpenStatementContext openCtx)
+    {
+        /***** Complete this method. *****/
+
+    }
+
+    public void emitMove(PascalParser.MoveStatementContext moveCtx)
+    {
+        /***** Complete this method. *****/
+
+    }
+
+    public void emitCopy(PascalParser.CopyStatementContext copyCtx)
+    {
+        /***** Complete this method. *****/
+
+    }
+
+    public void emitPrintFile(PascalParser.PrintFileStatementContext printFileCtx)
+    {
+        /***** Complete this method. *****/
+
+    }
+
     /**
      * Emit code for a WRITE statement.
      * @param ctx the WriteStatementContext.
