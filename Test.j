@@ -1,4 +1,4 @@
-.class public TestList
+.class public Test
 .super java/lang/Object
 
 .field private static _sysin Ljava/util/Scanner;
@@ -12,7 +12,7 @@
 	dup
 	getstatic	java/lang/System/in Ljava/io/InputStream;
 	invokespecial	java/util/Scanner/<init>(Ljava/io/InputStream;)V
-	putstatic	TestList/_sysin Ljava/util/Scanner;
+	putstatic	Test/_sysin Ljava/util/Scanner;
 	return
 
 .limit locals 0
@@ -23,7 +23,7 @@
 ; Main class constructor
 ;
 .method public <init>()V
-.var 0 is this LTestList;
+.var 0 is this LTest;
 
 	aload_0
 	invokespecial	java/lang/Object/<init>()V
@@ -46,28 +46,15 @@
 	astore_1
 
 ;
-; 005 LIST'.adfdsfa'
+; 005 LIST
 ;
 L001:
 	new	Api
 	dup
 	invokespecial	Api/<init>()V
-	ldc	".adfdsfa"
-	dup
-	invokestatic	Api/runListStatement(Ljava/lang/String;)V
-	pop
+	invokestatic	Api/runListStatement()V
 	goto	L002
 L002:
-;
-; 006 LIST
-;
-L003:
-	new	Api
-	dup
-	invokespecial	Api/<init>()V
-	invokestatic	Api/runListStatement()V
-	goto	L004
-L004:
 
 	invokestatic	java/time/Instant/now()Ljava/time/Instant;
 	astore_2

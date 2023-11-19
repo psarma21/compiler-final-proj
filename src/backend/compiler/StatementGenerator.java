@@ -337,69 +337,76 @@ public class StatementGenerator extends CodeGenerator
 
     public void emitPwd(PascalParser.PwdStatementContext pwdCtx)
     {
-        /***** Complete this method. *****/
+        // TODO - Kyle
+        // pwd returns working directory path (no input)
 
     }
 
     public void emitCreateFile(PascalParser.CreateFileStatementContext createFileCtx)
     {
-        /***** Complete this method. *****/
+        // TODO - Amir
+        // creates a file (path given as input)
 
     }
 
     public void emitCreateDir(PascalParser.CreateDirStatementContext createDirCtx)
     {
-        /***** Complete this method. *****/
+        // TODO - Ethan
+        // creates a directory (path given as input)
 
     }
 
-
-
     public void emitRemoveFile(PascalParser.RemoveFileStatementContext removeFileCtx)
     {
-        /***** Complete this method. *****/
+        // TODO - Pawan
+        // removes a file (path given as input)
 
     }
 
     public void emitRemoveDir(PascalParser.RemoveDirStatementContext removeDirCtx)
     {
-        /***** Complete this method. *****/
+        // TODO - Kyle
+        // removes a directory (path given as input)
 
     }
 
     public void emitExec(PascalParser.ExecStatementContext execCtx)
     {
-        /***** Complete this method. *****/
-
+        // TODO - Amir
+        // executes a file (path given as input). Let's assume these will only be java files
     }
+
     public void emitChDir(PascalParser.ChDirStatementContext chDirCtx)
     {
-        /***** Complete this method. *****/
-
+        // TODO - Ethan
+        // changes directory (path given as input)
     }
 
     public void emitOpen(PascalParser.OpenStatementContext openCtx)
     {
-        /***** Complete this method. *****/
-
+        // TODO - Pawan
+        // opens file (path given as input)
     }
 
     public void emitMove(PascalParser.MoveStatementContext moveCtx)
     {
-        /***** Complete this method. *****/
+        // TODO - Kyle
+        // mv moves file to new location - old location is deleted
+        // two paths given as input: original and new
 
     }
 
     public void emitCopy(PascalParser.CopyStatementContext copyCtx)
     {
-        /***** Complete this method. *****/
-
+        // TODO - Amir
+        // cp copies file from old location to new location. old copy retained
+        // two paths given as input: original and new
     }
 
     public void emitPrintFile(PascalParser.PrintFileStatementContext printFileCtx)
     {
-        /***** Complete this method. *****/
-
+        // TODO - Ethan
+        // cat prints raw contents of file
     }
 
     /**
