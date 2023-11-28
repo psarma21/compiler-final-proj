@@ -163,7 +163,7 @@ fieldWidth       : sign? integerConstant (':' decimalPlaces)? ;
 decimalPlaces    : integerConstant ;
 
 listStatement    : LIST stringConstant? ;
-pwdStatement     : PRINTDIRPATH ;
+pwdStatement     : PRINTPATH ;
 
 createFileStatement : CREATEFILE stringConstant ;
 createDirStatement  : CREATEDIR stringConstant ;
@@ -171,11 +171,16 @@ removeFileStatement : REMOVEFILE stringConstant ;
 removeDirStatement  : REMOVEDIR stringConstant ;
 
 execStatement    : EXEC stringConstant  ;
+// execs
 chDirStatement   : CHANGEDIR stringConstant ;
 openStatement    : OPEN stringConstant ;
-moveStatement    : MOVE stringConstant stringConstant ;
-copyStatement    : COPY stringConstant stringConstant ;
+moveStatement    : MOVE stringConstant TO stringConstant ;
+copyStatement    : COPY stringConstant TO stringConstant ;
 printFileStatement  : PRINTFILE stringConstant ;
+
+// show
+// replace
+// in
 
 readStatement   : READ readArguments ;
 readlnStatement : READLN readArguments ;
@@ -286,7 +291,7 @@ PROCEDURE : P R O C E D U R E ;
 FUNCTION  : F U N C T I O N ;
 LIST      : L I S T ;
 
-PRINTDIRPATH : P R I N T D I R P A T H ;
+PRINTPATH    : P R I N T P A T H ;
 CREATEFILE   : C R E A T E F I L E ;
 CREATEDIR    : C R E A T E D I R ;
 REMOVEFILE   : R E M O V E F I L E ;

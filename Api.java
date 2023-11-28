@@ -5,16 +5,11 @@ public class Api {
     public Api() {}
 
     public static void runListStatement(String directoryPath) {
-
-        // Create a File object representing the directory
         File directory = new File(directoryPath);
 
-        // Check if the provided path exists and is a directory
         if (directory.exists() && directory.isDirectory()) {
-            // Get a list of files and directories in the specified directory
             File[] files = directory.listFiles();
 
-            // Display the list of files and directories
             if (files != null) {
                 for (File file : files) {
                     System.out.println(file.getName());
@@ -29,15 +24,11 @@ public class Api {
     public static void runListStatement() {
         String directoryPath = "."; // Current directory
 
-        // Create a File object representing the directory
         File directory = new File(directoryPath);
 
-        // Check if the provided path exists and is a directory
         if (directory.exists() && directory.isDirectory()) {
-            // Get a list of files and directories in the specified directory
             File[] files = directory.listFiles();
 
-            // Display the list of files and directories
             if (files != null) {
                 for (File file : files) {
                     System.out.println(file.getName());
@@ -48,10 +39,54 @@ public class Api {
         }
     }
 
-    // TODO - add all functions here!
+    public static void runPwdStatement() {
+        File directory = new File("."); // current directory
+        try {
+            System.out.println(directory.getCanonicalPath());
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Error getting current directory");
+        }
+    }
+
+
+    public static void createFileStatement(String filePath) {
+        File file = new File(filePath);
+        try {
+            file.createNewFile();
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Error creating new file");
+        }
+    }
+
+    public static void createDirStatement(String dirPath) {
+        File directory = new File(dirPath);
+        try {
+            directory.mkdir();
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Error creating new folder");
+        }
+    }
+
+    public static void removeFileOrDirStatement(String path) {
+        File fileOrDirectory = new File(path);
+        try {
+            fileOrDirectory.delete();
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Error deleting file or folder");
+        }
+    }
 
     public static void main(String[] args) {
-        runListStatement();
+//        runListStatement();
+//        runPwdStatement();
+//        createFileStatement("test.txt");
+//        createDirStatement("test");
+        removeFileOrDirStatement("test.txtasdfadsf");
+
     }
 }
 

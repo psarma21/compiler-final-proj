@@ -2,5 +2,6 @@ program Test;
 
 
 begin
-  LIST ;
+  REMOVEFILE 'test.txt' ;
+  REMOVEDIR 'test';
 end.

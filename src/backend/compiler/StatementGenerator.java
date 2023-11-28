@@ -306,14 +306,14 @@ public class StatementGenerator extends CodeGenerator
         emit(INVOKESTATIC, invokeStaticInput);
     }
 
+    // emitList runs -ls on a given path. If no input is given it runs on the current path.
     public void emitList(PascalParser.ListStatementContext listCtx)
     {
-        /***** Complete this method. *****/
         // Note: Lines 313-316 must be there
-        Label procedureTopLabel  = new Label();
-        Label procedureExitLabel = new Label();
+        Label topLabel  = new Label();
+        Label exitLabel = new Label();
 
-        emitLabel(procedureTopLabel);
+        emitLabel(topLabel);
 
         // Note: Lines 319-326 must be there
         emit(NEW, "Api");
@@ -321,7 +321,7 @@ public class StatementGenerator extends CodeGenerator
         emit(INVOKESPECIAL, "Api/<init>()V");
         if (listCtx.stringConstant() != null) {
             String path = listCtx.stringConstant().getText();
-            emit(LDC, "\"" + path.substring(1, path.length()-1) + "\"");
+            emit(LDC, "\"" + path.substring(1, path.length()-1) + "\""); // changing from '' to ""
             // TODO - Change function name here
             emit(INVOKESTATIC, "Api/runListStatement(Ljava/lang/String;)V");
         }
@@ -329,68 +329,111 @@ public class StatementGenerator extends CodeGenerator
             emit(INVOKESTATIC, "Api/runListStatement()V");
         }
 
-        // Note: Lines 332 and 334 must be there
-        emit(GOTO, procedureExitLabel);
+        emit(GOTO, exitLabel);
 
-        emitLabel(procedureExitLabel);
+        emitLabel(exitLabel);
     }
 
+    // emitPwd returns the working directory path
     public void emitPwd(PascalParser.PwdStatementContext pwdCtx)
     {
-        // TODO - Kyle
-        // pwd returns working directory path (no input)
+        Label topLabel  = new Label();
+        Label exitLabel = new Label();
 
+        emitLabel(topLabel);
+
+        emit(INVOKESTATIC, "Api/runPwdStatement()V");
+
+        emit(GOTO, exitLabel);
+
+        emitLabel(exitLabel);
     }
 
+    // emitCreateFile creates a file given file path as input
     public void emitCreateFile(PascalParser.CreateFileStatementContext createFileCtx)
     {
-        // TODO - Amir
-        // creates a file (path given as input)
+        Label topLabel  = new Label();
+        Label exitLabel = new Label();
 
+        emitLabel(topLabel);
+
+        String path = createFileCtx.stringConstant().getText();
+        emit(LDC, "\"" + path.substring(1, path.length()-1) + "\"");
+        emit(INVOKESTATIC, "Api/createFileStatement(Ljava/lang/String;)V");
+
+        emit(GOTO, exitLabel);
+
+        emitLabel(exitLabel);
     }
 
+    // emitCreateDir creates a directory given directory path as input
     public void emitCreateDir(PascalParser.CreateDirStatementContext createDirCtx)
     {
-        // TODO - Ethan
-        // creates a directory (path given as input)
+        Label topLabel  = new Label();
+        Label exitLabel = new Label();
 
+        emitLabel(topLabel);
+
+        String path = createDirCtx.stringConstant().getText();
+        emit(LDC, "\"" + path.substring(1, path.length()-1) + "\"");
+        emit(INVOKESTATIC, "Api/createDirStatement(Ljava/lang/String;)V");
+
+        emit(GOTO, exitLabel);
+
+        emitLabel(exitLabel);
     }
 
+    // emitRemoveFile removes a file path given as input
     public void emitRemoveFile(PascalParser.RemoveFileStatementContext removeFileCtx)
     {
-        // TODO - Pawan
-        // removes a file (path given as input)
+        Label topLabel  = new Label();
+        Label exitLabel = new Label();
 
+        emitLabel(topLabel);
+
+        String path = removeFileCtx.stringConstant().getText();
+        emit(LDC, "\"" + path.substring(1, path.length()-1) + "\"");
+        emit(INVOKESTATIC, "Api/removeFileOrDirStatement(Ljava/lang/String;)V");
+
+        emit(GOTO, exitLabel);
+
+        emitLabel(exitLabel);
     }
 
+    // emitRemoveDir removes a directory path given as input
     public void emitRemoveDir(PascalParser.RemoveDirStatementContext removeDirCtx)
     {
-        // TODO - Kyle
-        // removes a directory (path given as input)
+        Label topLabel  = new Label();
+        Label exitLabel = new Label();
 
+        emitLabel(topLabel);
+
+        String path = removeDirCtx.stringConstant().getText();
+        emit(LDC, "\"" + path.substring(1, path.length()-1) + "\"");
+        emit(INVOKESTATIC, "Api/removeFileOrDirStatement(Ljava/lang/String;)V");
+
+        emit(GOTO, exitLabel);
+
+        emitLabel(exitLabel);
     }
 
     public void emitExec(PascalParser.ExecStatementContext execCtx)
     {
-        // TODO - Amir
         // executes a file (path given as input). Let's assume these will only be java files
     }
 
     public void emitChDir(PascalParser.ChDirStatementContext chDirCtx)
     {
-        // TODO - Ethan
         // changes directory (path given as input)
     }
 
     public void emitOpen(PascalParser.OpenStatementContext openCtx)
     {
-        // TODO - Pawan
         // opens file (path given as input)
     }
 
     public void emitMove(PascalParser.MoveStatementContext moveCtx)
     {
-        // TODO - Kyle
         // mv moves file to new location - old location is deleted
         // two paths given as input: original and new
 
@@ -398,14 +441,12 @@ public class StatementGenerator extends CodeGenerator
 
     public void emitCopy(PascalParser.CopyStatementContext copyCtx)
     {
-        // TODO - Amir
         // cp copies file from old location to new location. old copy retained
         // two paths given as input: original and new
     }
 
     public void emitPrintFile(PascalParser.PrintFileStatementContext printFileCtx)
     {
-        // TODO - Ethan
         // cat prints raw contents of file
     }
 

@@ -2,7 +2,7 @@ program Sample;
 
 procedure makeFirstFile;
     begin
-        PRINTDIRPATH;
+        PRINTPATH;
         CREATEDIR 'folder1';
         LIST;
         CHANGEDIR 'folder1';
@@ -17,7 +17,7 @@ procedure makeFirstFile;
 
 procedure makeSecondFile;
     begin
-        PRINTDIRPATH;
+        PRINTPATH;
         LIST;
         CREATEDIR 'folder2';
         LIST;

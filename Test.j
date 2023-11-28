@@ -46,15 +46,21 @@
 	astore_1
 
 ;
-; 005 LIST
+; 005 REMOVEFILE'test.txt'
 ;
 L001:
-	new	Api
-	dup
-	invokespecial	Api/<init>()V
-	invokestatic	Api/runListStatement()V
+	ldc	"test.txt"
+	invokestatic	Api/removeFileOrDirStatement(Ljava/lang/String;)V
 	goto	L002
 L002:
+;
+; 006 REMOVEDIR'test'
+;
+L003:
+	ldc	"test"
+	invokestatic	Api/removeFileOrDirStatement(Ljava/lang/String;)V
+	goto	L004
+L004:
 
 	invokestatic	java/time/Instant/now()Ljava/time/Instant;
 	astore_2
