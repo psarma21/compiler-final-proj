@@ -432,22 +432,59 @@ public class StatementGenerator extends CodeGenerator
         // opens file (path given as input)
     }
 
+    // emitMove moves a file to a new location and deletes from old location
     public void emitMove(PascalParser.MoveStatementContext moveCtx)
     {
-        // mv moves file to new location - old location is deleted
-        // two paths given as input: original and new
+        Label topLabel  = new Label();
+        Label exitLabel = new Label();
 
+        emitLabel(topLabel);
+
+        String oldPath = moveCtx.stringConstant(0).getText();
+        String newPath = moveCtx.stringConstant(1).getText();
+        emit(LDC, "\"" + oldPath.substring(1, oldPath.length()-1) + "\"");
+        emit(LDC, "\"" + newPath.substring(1, newPath.length()-1) + "\"");
+        emit(INVOKESTATIC, "Api/moveStatement(Ljava/lang/String;Ljava/lang/String;)V");
+
+        emit(GOTO, exitLabel);
+
+        emitLabel(exitLabel);
     }
 
+    // emitCopy creates a duplicate copy in new location
     public void emitCopy(PascalParser.CopyStatementContext copyCtx)
     {
-        // cp copies file from old location to new location. old copy retained
-        // two paths given as input: original and new
+        Label topLabel  = new Label();
+        Label exitLabel = new Label();
+
+        emitLabel(topLabel);
+
+        String oldPath = copyCtx.stringConstant(0).getText();
+        String newPath = copyCtx.stringConstant(1).getText();
+        emit(LDC, "\"" + oldPath.substring(1, oldPath.length()-1) + "\"");
+        emit(LDC, "\"" + newPath.substring(1, newPath.length()-1) + "\"");
+        emit(INVOKESTATIC, "Api/copyStatement(Ljava/lang/String;Ljava/lang/String;)V");
+
+        emit(GOTO, exitLabel);
+
+        emitLabel(exitLabel);
     }
 
+    // emitPrintFile prints the raw contents of a file
     public void emitPrintFile(PascalParser.PrintFileStatementContext printFileCtx)
     {
-        // cat prints raw contents of file
+        Label topLabel  = new Label();
+        Label exitLabel = new Label();
+
+        emitLabel(topLabel);
+
+        String path = printFileCtx.stringConstant().getText();
+        emit(LDC, "\"" + path.substring(1, path.length()-1) + "\"");
+        emit(INVOKESTATIC, "Api/printFileStatement(Ljava/lang/String;)V");
+
+        emit(GOTO, exitLabel);
+
+        emitLabel(exitLabel);
     }
 
     /**

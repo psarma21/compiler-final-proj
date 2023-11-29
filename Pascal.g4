@@ -171,16 +171,14 @@ removeFileStatement : REMOVEFILE stringConstant ;
 removeDirStatement  : REMOVEDIR stringConstant ;
 
 execStatement    : EXEC stringConstant  ;
-// execs
-chDirStatement   : CHANGEDIR stringConstant ;
+
+chDirStatement   : IN stringConstant '(' statementList ')';
 openStatement    : OPEN stringConstant ;
 moveStatement    : MOVE stringConstant TO stringConstant ;
 copyStatement    : COPY stringConstant TO stringConstant ;
 printFileStatement  : PRINTFILE stringConstant ;
 
-// show
-// replace
-// in
+// TODO - in, execs, show, replace, open
 
 readStatement   : READ readArguments ;
 readlnStatement : READLN readArguments ;
@@ -297,7 +295,7 @@ CREATEDIR    : C R E A T E D I R ;
 REMOVEFILE   : R E M O V E F I L E ;
 REMOVEDIR    : R E M O V E D I R ;
 EXEC         : E X E C ;
-CHANGEDIR    : C H A N G E D I R ;
+IN           : I N ;
 OPEN         : O P E N ;
 COPY         : C O P Y ;
 PRINTFILE    : P R I N T F I L E ;

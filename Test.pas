@@ -2,6 +2,5 @@ program Test;
 
 
 begin
-  REMOVEFILE 'test.txt' ;
-  REMOVEDIR 'test';
+  PRINTFILE 'test.txt';
 end.

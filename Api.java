@@ -1,4 +1,6 @@
 import java.io.File;
+import java.nio.file.*;
+import java.util.List;
 
 public class Api {
 
@@ -16,7 +18,7 @@ public class Api {
                 }
             }
         } else {
-            System.out.println("Directory doesn't exist or is not a directory.");
+            System.out.println("Directory doesn't exist or is not a directory");
         }
 
     }
@@ -55,8 +57,15 @@ public class Api {
         try {
             file.createNewFile();
         } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Error creating new file");
+            if (file.exists()) {
+                removeFileOrDirStatement(filePath);
+                createFileStatement(filePath);
+            }
+            else {
+                e.printStackTrace();
+                System.out.println("Error creating new file");
+            }
+
         }
     }
 
@@ -80,13 +89,46 @@ public class Api {
         }
     }
 
+    public static void moveStatement(String oldFile, String newFile) {
+        copyStatement(oldFile, newFile);
+        removeFileOrDirStatement(oldFile);
+    }
+
+    public static void copyStatement(String oldFile, String newFile) {
+        createFileStatement(newFile);
+        Path oldPath = Paths.get(oldFile);
+        Path newPath = Paths.get(newFile);
+        try {
+            Files.copy(oldPath, newPath, StandardCopyOption.REPLACE_EXISTING);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Error copying file");
+        }
+    }
+
+    public static void printFileStatement(String file) {
+        Path path = Paths.get(file);
+        try {
+            List<String> fileContents = Files.readAllLines(path);
+            for (String s : fileContents) {
+                System.out.println(s);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Error printing file");
+        }
+    }
+
     public static void main(String[] args) {
 //        runListStatement();
 //        runPwdStatement();
 //        createFileStatement("test.txt");
 //        createDirStatement("test");
-        removeFileOrDirStatement("test.txtasdfadsf");
-
+//        removeFileOrDirStatement("test.txt");
+//        execStatement("MyTestFile.java");
+//        moveStatement("test.txt", "test.txt");
+//        copyStatement("test.txt", "test.txt");
+//        printFileStatement("test.txt");
     }
 }
 

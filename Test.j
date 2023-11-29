@@ -46,21 +46,13 @@
 	astore_1
 
 ;
-; 005 REMOVEFILE'test.txt'
+; 005 PRINTFILE'test.txt'
 ;
 L001:
 	ldc	"test.txt"
-	invokestatic	Api/removeFileOrDirStatement(Ljava/lang/String;)V
+	invokestatic	Api/printFileStatement(Ljava/lang/String;)V
 	goto	L002
 L002:
-;
-; 006 REMOVEDIR'test'
-;
-L003:
-	ldc	"test"
-	invokestatic	Api/removeFileOrDirStatement(Ljava/lang/String;)V
-	goto	L004
-L004:
 
 	invokestatic	java/time/Instant/now()Ljava/time/Instant;
 	astore_2
