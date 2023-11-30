@@ -217,8 +217,41 @@ public class Api {
         return "";
     }
 
-    public static String execsStatement(String file) {
-        // should somehow run the file and return the output of the file (if any) as a string
+    public static String execsStatement(String filePath) {
+        String fileType = getFileType(filePath);
+        String output = "";
+
+        try {
+            switch (fileType) {
+                case "java":
+                    output = execsJava(filePath);
+                    break;
+                case "cpp":
+                    output = execsCpp(filePath);
+                    break;
+                case "py":
+                    output = execsPython(filePath);
+                    break;
+                default:
+                    System.out.println("Unknown file type");
+                    break;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Error: Invalid file name");
+        }
+        return output;
+    }
+
+    public static String execsJava(String filePath) {
+        return "";
+    }
+
+    public static String execsCpp(String filePath) {
+        return "";
+    }
+
+    public static String execsPython(String filePath) {
         return "";
     }
 
