@@ -815,15 +815,25 @@ public interface PascalListener extends ParseTreeListener {
 	 */
 	void exitExecStatement(PascalParser.ExecStatementContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link PascalParser#chDirStatement}.
+	 * Enter a parse tree produced by {@link PascalParser#execsStatement}.
 	 * @param ctx the parse tree
 	 */
-	void enterChDirStatement(PascalParser.ChDirStatementContext ctx);
+	void enterExecsStatement(PascalParser.ExecsStatementContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link PascalParser#chDirStatement}.
+	 * Exit a parse tree produced by {@link PascalParser#execsStatement}.
 	 * @param ctx the parse tree
 	 */
-	void exitChDirStatement(PascalParser.ChDirStatementContext ctx);
+	void exitExecsStatement(PascalParser.ExecsStatementContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link PascalParser#inStatement}.
+	 * @param ctx the parse tree
+	 */
+	void enterInStatement(PascalParser.InStatementContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PascalParser#inStatement}.
+	 * @param ctx the parse tree
+	 */
+	void exitInStatement(PascalParser.InStatementContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link PascalParser#openStatement}.
 	 * @param ctx the parse tree
@@ -865,15 +875,25 @@ public interface PascalListener extends ParseTreeListener {
 	 */
 	void exitPrintFileStatement(PascalParser.PrintFileStatementContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link PascalParser#showPhraseStatement}.
+	 * Enter a parse tree produced by {@link PascalParser#showStatement}.
 	 * @param ctx the parse tree
 	 */
-	void enterShowPhraseStatement(PascalParser.ShowPhraseStatementContext ctx);
+	void enterShowStatement(PascalParser.ShowStatementContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link PascalParser#showPhraseStatement}.
+	 * Exit a parse tree produced by {@link PascalParser#showStatement}.
 	 * @param ctx the parse tree
 	 */
-	void exitShowPhraseStatement(PascalParser.ShowPhraseStatementContext ctx);
+	void exitShowStatement(PascalParser.ShowStatementContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link PascalParser#replaceStatement}.
+	 * @param ctx the parse tree
+	 */
+	void enterReplaceStatement(PascalParser.ReplaceStatementContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PascalParser#replaceStatement}.
+	 * @param ctx the parse tree
+	 */
+	void exitReplaceStatement(PascalParser.ReplaceStatementContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link PascalParser#readStatement}.
 	 * @param ctx the parse tree

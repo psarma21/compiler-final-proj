@@ -108,12 +108,13 @@ statement : compoundStatement
           | removeFileStatement
           | removeDirStatement
           | execStatement
-          | chDirStatement
+          | inStatement
           | openStatement
           | moveStatement
           | copyStatement
           | printFileStatement
-          | showPhraseStatement
+          | showStatement
+          | replaceStatement
           ;
 
 compoundStatement : BEGIN statementList END ;
@@ -170,18 +171,17 @@ createDirStatement  : CREATEDIR stringConstant ;
 removeFileStatement : REMOVEFILE stringConstant ;
 removeDirStatement  : REMOVEDIR stringConstant ;
 
-execStatement    : EXEC stringConstant  ;
+execStatement    : EXEC stringConstant ;
+execsStatement   : EXECS stringConstant ;
 
-chDirStatement   : IN stringConstant '(' statementList ')';
+inStatement   : IN stringConstant '(' statementList ')';
 openStatement    : OPEN stringConstant ;
 moveStatement    : MOVE stringConstant TO stringConstant ;
 copyStatement    : COPY stringConstant TO stringConstant ;
 printFileStatement  : PRINTFILE stringConstant ;
 
-showPhraseStatement : SHOW stringConstant IN stringConstant ;
-
-// TODO - in, execs, show, replace, open
-
+showStatement : SHOW stringConstant IN stringConstant ;
+replaceStatement : REPLACE stringConstant IN stringConstant TO stringConstant;
 
 readStatement   : READ readArguments ;
 readlnStatement : READLN readArguments ;
@@ -290,20 +290,22 @@ READ      : R E A D ;
 READLN    : R E A D L N ;
 PROCEDURE : P R O C E D U R E ;
 FUNCTION  : F U N C T I O N ;
-LIST      : L I S T ;
 
+LIST      : L I S T ;
 PRINTPATH    : P R I N T P A T H ;
 CREATEFILE   : C R E A T E F I L E ;
 CREATEDIR    : C R E A T E D I R ;
 REMOVEFILE   : R E M O V E F I L E ;
 REMOVEDIR    : R E M O V E D I R ;
 EXEC         : E X E C ;
+EXECS        : E X E C S ;
 IN           : I N ;
 OPEN         : O P E N ;
+MOVE         : M O V E ;
 COPY         : C O P Y ;
 PRINTFILE    : P R I N T F I L E ;
-MOVE         : M O V E ;
 SHOW         : S H O W ;
+REPLACE      : R E P L A C E ;
 
 IDENTIFIER : [a-zA-Z][a-zA-Z0-9]* ;
 INTEGER    : [0-9]+ ;
