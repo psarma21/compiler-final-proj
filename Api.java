@@ -148,8 +148,7 @@ public class Api {
 //        moveStatement("test.txt", "test.txt");
 //        copyStatement("test.txt", "test.txt");
 //        printFileStatement("test.txt");
-//
-          openStatement("README.md");
+//        openStatement("test.txt");
     }
 }
 
