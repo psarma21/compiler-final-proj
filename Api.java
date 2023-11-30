@@ -279,7 +279,12 @@ public class API {
 
     private static void executeCompiledJavaProgram(String filePath) {
         try {
-            String className = getClassNameFromFilePath(filePath);
+            // convert filePath to point to the directory it's currently in, *not* a path to contents
+            // classFileDirectory only takes the in directory, not the actual path to the .class
+            File f = new File(filePath);
+            String filePathDirectory = f.getParent();
+
+            String className = getClassNameFromFilePath(filePathDirectory);
             File classFileDirectory = new File(filePath);
 
             URLClassLoader classLoader = URLClassLoader.newInstance(new URL[]{classFileDirectory.toURI().toURL()});
@@ -323,6 +328,6 @@ public class API {
 //        openStatement("test.txt");
 //        showPhraseStatement("hello", "test.txt");
 //        replaceStatement("test.txt", "hello", "hola");
-//        execStatement("EXECTestFiles/HelloWorld.java");
+        execStatement("EXECTestFiles/HelloWorld.java");
     }
 }
