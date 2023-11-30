@@ -132,7 +132,24 @@ public class Api {
     }
 
     public static void showPhraseStatement(String phrase, String file) {
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(file));
+            String line;
+            int lineNum = 1;
 
+            while ((line = reader.readLine()) != null) {
+                int index = line.indexOf(phrase);
+                while (index != -1) {
+                    System.out.println("Found at line " + lineNum + ", position " + index + " | " + line);
+                    index = line.indexOf(phrase, index + 1);
+                }
+                lineNum++;
+            }
+            reader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("An error occurred: " + e.getMessage());
+        }
     }
 
     public static void replaceStatement(String filePath, String oldPhrase, String newPhrase) {
@@ -167,6 +184,7 @@ public class Api {
 //        copyStatement("test.txt", "test.txt");
 //        printFileStatement("test.txt");
 //        openStatement("test.txt");
+//        showPhraseStatement("hello", "test.txt");
 //        replaceStatement("test.txt", "hello", "hola");
     }
 }
