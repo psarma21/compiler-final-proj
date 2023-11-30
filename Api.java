@@ -1,5 +1,6 @@
 import java.io.File;
 import java.nio.file.*;
+import java.awt.Desktop;
 import java.util.List;
 
 public class Api {
@@ -119,7 +120,15 @@ public class Api {
     }
 
     public static void openStatement(String file) {
-        // TODO
+        File f = new File(file);
+
+        try {
+            Desktop desktop = Desktop.getDesktop();
+            desktop.open(f);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Error: unable to open file in application");
+        }
     }
 
     public static void showPhraseStatement(String phrase, String file) {
@@ -139,6 +148,8 @@ public class Api {
 //        moveStatement("test.txt", "test.txt");
 //        copyStatement("test.txt", "test.txt");
 //        printFileStatement("test.txt");
+//
+          openStatement("README.md");
     }
 }
 
