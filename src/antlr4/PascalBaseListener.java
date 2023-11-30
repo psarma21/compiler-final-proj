@@ -970,13 +970,25 @@ public class PascalBaseListener implements PascalListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterChDirStatement(PascalParser.ChDirStatementContext ctx) { }
+	@Override public void enterExecsStatement(PascalParser.ExecsStatementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitChDirStatement(PascalParser.ChDirStatementContext ctx) { }
+	@Override public void exitExecsStatement(PascalParser.ExecsStatementContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterInStatement(PascalParser.InStatementContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitInStatement(PascalParser.InStatementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -1030,13 +1042,25 @@ public class PascalBaseListener implements PascalListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterShowPhraseStatement(PascalParser.ShowPhraseStatementContext ctx) { }
+	@Override public void enterShowStatement(PascalParser.ShowStatementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitShowPhraseStatement(PascalParser.ShowPhraseStatementContext ctx) { }
+	@Override public void exitShowStatement(PascalParser.ShowStatementContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterReplaceStatement(PascalParser.ReplaceStatementContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitReplaceStatement(PascalParser.ReplaceStatementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

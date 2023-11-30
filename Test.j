@@ -46,15 +46,23 @@
 	astore_1
 
 ;
-; 005 LIST
+; 005 MOVE'HelloWorld.py'to'HelloWorld.py'
 ;
 L001:
-	new	Api
-	dup
-	invokespecial	Api/<init>()V
-	invokestatic	Api/runListStatement()V
+	ldc	"HelloWorld.py"
+	ldc	"HelloWorld.py"
+	invokestatic	Api/moveStatement(Ljava/lang/String;Ljava/lang/String;)V
 	goto	L002
 L002:
+;
+; 006 COPY'test.txt'to'test2.txt'
+;
+L003:
+	ldc	"test.txt"
+	ldc	"test2.txt"
+	invokestatic	Api/copyStatement(Ljava/lang/String;Ljava/lang/String;)V
+	goto	L004
+L004:
 
 	invokestatic	java/time/Instant/now()Ljava/time/Instant;
 	astore_2

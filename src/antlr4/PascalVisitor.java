@@ -496,11 +496,17 @@ public interface PascalVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitExecStatement(PascalParser.ExecStatementContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link PascalParser#chDirStatement}.
+	 * Visit a parse tree produced by {@link PascalParser#execsStatement}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitChDirStatement(PascalParser.ChDirStatementContext ctx);
+	T visitExecsStatement(PascalParser.ExecsStatementContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link PascalParser#inStatement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitInStatement(PascalParser.InStatementContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link PascalParser#openStatement}.
 	 * @param ctx the parse tree
@@ -526,11 +532,17 @@ public interface PascalVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitPrintFileStatement(PascalParser.PrintFileStatementContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link PascalParser#showPhraseStatement}.
+	 * Visit a parse tree produced by {@link PascalParser#showStatement}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitShowPhraseStatement(PascalParser.ShowPhraseStatementContext ctx);
+	T visitShowStatement(PascalParser.ShowStatementContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link PascalParser#replaceStatement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitReplaceStatement(PascalParser.ReplaceStatementContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link PascalParser#readStatement}.
 	 * @param ctx the parse tree

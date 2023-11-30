@@ -417,14 +417,33 @@ public class StatementGenerator extends CodeGenerator
         emitLabel(exitLabel);
     }
 
+    // emitExec compiles and runs a file (Java, C, Python)
     public void emitExec(PascalParser.ExecStatementContext execCtx)
     {
-        // executes a file (path given as input). Let's assume these will only be java files
+        Label topLabel  = new Label();
+        Label exitLabel = new Label();
+
+        emitLabel(topLabel);
+
+        String path = execCtx.stringConstant().getText();
+        emit(LDC, "\"" + path.substring(1, path.length()-1) + "\"");
+        emit(INVOKESTATIC, "Api/execStatement(Ljava/lang/String;)V");
+
+        emit(GOTO, exitLabel);
+
+        emitLabel(exitLabel);
     }
 
-    public void emitChDir(PascalParser.ChDirStatementContext chDirCtx)
+    // emitExecs compiles and runs a file (Java, C, Python) and stores the value
+    public void emitExecs(PascalParser.ExecsStatementContext execsCtx)
     {
-        // changes directory (path given as input)
+
+    }
+
+    // emitIn temporarily changes directories into the given path and executes the statements inside it
+    public void emitIn(PascalParser.InStatementContext inCtx)
+    {
+
     }
 
     // emitOpen opens a file in its default application
@@ -499,18 +518,40 @@ public class StatementGenerator extends CodeGenerator
         emitLabel(exitLabel);
     }
 
-    public void emitShowStatement(PascalParser.ShowPhraseStatementContext showPhraseCtx)
+    // emitShowStatement prints every instance of a phrase in a given file
+    public void emitShowStatement(PascalParser.ShowStatementContext showCtx)
     {
         Label topLabel  = new Label();
         Label exitLabel = new Label();
 
         emitLabel(topLabel);
 
-        String phrase = showPhraseCtx.stringConstant(0).getText();
-        String fileName = showPhraseCtx.stringConstant(1).getText();
+        String phrase = showCtx.stringConstant(0).getText();
+        String fileName = showCtx.stringConstant(1).getText();
         emit(LDC, "\"" + phrase.substring(1, phrase.length()-1) + "\"");
         emit(LDC, "\"" + fileName.substring(1, fileName.length()-1) + "\"");
-        emit(INVOKESTATIC, "Api/showPhraseStatement(Ljava/lang/String;Ljava/lang/String;)V");
+        emit(INVOKESTATIC, "Api/showStatement(Ljava/lang/String;Ljava/lang/String;)V");
+
+        emit(GOTO, exitLabel);
+
+        emitLabel(exitLabel);
+    }
+
+    // emitReplaceStatement replaces a phrase with the other input phrase in a given file
+    public void emitReplaceStatement(PascalParser.ReplaceStatementContext replaceCtx)
+    {
+        Label topLabel  = new Label();
+        Label exitLabel = new Label();
+
+        emitLabel(topLabel);
+
+        String oldPhrase = replaceCtx.stringConstant(0).getText();
+        String fileName = replaceCtx.stringConstant(1).getText();
+        String newPhrase = replaceCtx.stringConstant(2).getText();
+        emit(LDC, "\"" + oldPhrase.substring(1, oldPhrase.length()-1) + "\"");
+        emit(LDC, "\"" + fileName.substring(1, fileName.length()-1) + "\"");
+        emit(LDC, "\"" + newPhrase.substring(1, newPhrase.length()-1) + "\"");
+        emit(INVOKESTATIC, "Api/replaceStatement(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V");
 
         emit(GOTO, exitLabel);
 

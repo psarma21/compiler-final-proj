@@ -288,8 +288,14 @@ public class Compiler extends PascalBaseVisitor<Object> {
     }
 
     @Override
-    public Object visitChDirStatement(PascalParser.ChDirStatementContext ctx) {
-        statementCode.emitChDir(ctx);
+    public Object visitExecsStatement(PascalParser.ExecsStatementContext ctx) {
+        statementCode.emitExecs(ctx);
+        return null;
+    }
+
+    @Override
+    public Object visitInStatement(PascalParser.InStatementContext ctx) {
+        statementCode.emitIn(ctx);
         return null;
     }
 
@@ -318,8 +324,14 @@ public class Compiler extends PascalBaseVisitor<Object> {
     }
 
     @Override
-    public Object visitShowPhraseStatement(PascalParser.ShowPhraseStatementContext ctx) {
+    public Object visitShowStatement(PascalParser.ShowStatementContext ctx) {
         statementCode.emitShowStatement(ctx);
+        return null;
+    }
+
+    @Override
+    public Object visitReplaceStatement(PascalParser.ReplaceStatementContext ctx) {
+        statementCode.emitReplaceStatement(ctx);
         return null;
     }
 }
