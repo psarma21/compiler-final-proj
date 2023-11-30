@@ -1,7 +1,6 @@
 #include <iostream>
 
 int main() {
-    std::cout << "C++ | hello world" << std::endl;
+    std::cout << "C++ | hello world | EXECS" << std::endl;
     return 0;
 }
-

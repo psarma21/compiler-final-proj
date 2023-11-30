@@ -240,19 +240,114 @@ public class Api {
             e.printStackTrace();
             System.out.println("Error: Invalid file name");
         }
+
         return output;
     }
 
     public static String execsJava(String filePath) {
-        return "";
+        String javaOutput = "";
+
+        try {
+             // Compile the Java file
+             Process compileProcess = Runtime.getRuntime().exec("javac " + filePath);
+             compileProcess.waitFor();
+
+             if (compileProcess.exitValue() != 0) {
+                 System.out.println("Java program execution failed.");
+                 return "";
+             }
+
+             File javaFile = new File(filePath);
+             String directory = javaFile.getParent();
+
+             ProcessBuilder processBuilder = new ProcessBuilder("java", getClassNameFromFilePath(filePath));
+             processBuilder.directory(new File(directory));
+             Process process = processBuilder.start();
+
+             BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+             StringBuilder output = new StringBuilder();
+             String line;
+             while ((line = reader.readLine()) != null) {
+                 output.append(line).append("\n");
+             }
+
+             javaOutput = output.toString();
+
+         } catch (Exception e) {
+             e.printStackTrace();
+             System.out.println("Error: unable to store Java output into variable.");
+         }
+
+        return javaOutput;
     }
 
     public static String execsCpp(String filePath) {
-        return "";
+        String cppOutput = "";
+
+        try {
+            ProcessBuilder compileProcess = new ProcessBuilder("g++", filePath, "-o", "output");
+            Process compile = compileProcess.start();
+            int compileExitCode = compile.waitFor();
+
+            if (compileExitCode == 0) {
+                // If compilation is successful, execute the compiled program
+                ProcessBuilder executeProcess = new ProcessBuilder("./output");
+                Process execute = executeProcess.start();
+
+                // Capture the output of the executed C++ program
+                BufferedReader reader = new BufferedReader(new InputStreamReader(execute.getInputStream()));
+                StringBuilder output = new StringBuilder();
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    output.append(line).append("\n");
+                }
+                reader.close();
+
+                int executeExitCode = execute.waitFor();
+                if (executeExitCode == 0) {
+                    // Print captured output
+                    cppOutput = output.toString();
+                } else {
+                    System.out.println("C++ program execution failed.");
+                }
+            } else {
+                System.out.println("C++ program execution failed.");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Error: unable to store C++ output into variable.");
+        }
+
+        return cppOutput;
     }
 
     public static String execsPython(String filePath) {
-        return "";
+        String pythonOutput = "";
+
+        try {
+            ProcessBuilder processBuilder = new ProcessBuilder("python", filePath);
+            Process process = processBuilder.start();
+
+            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+            StringBuilder output = new StringBuilder();
+            String line;
+
+            while ((line = reader.readLine()) != null) {
+                output.append(line).append("\n");
+            }
+
+            int exitCode = process.waitFor(); // Wait for the process to finish
+            if (exitCode == 0) {
+                pythonOutput = output.toString();
+            } else {
+                System.out.println("Python script execution failed.");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Error: unable to store Python output into variable.");
+        }
+
+        return pythonOutput;
     }
 
     public static void openStatement(String file) {
@@ -353,6 +448,7 @@ public class Api {
 //        printFileStatement("test.txt");
 //        showStatement("hello", "test.txt");
 //        replaceStatement("test.txt", "hello", "hola");
-        execStatement("EXECTestFiles/HelloWorld.java");
+//        execStatement("EXECTestFiles/HelloWorld.java");
+//        String s = execsStatement("EXECTestFiles/HelloWorld.py"); System.out.println(s);
     }
 }
