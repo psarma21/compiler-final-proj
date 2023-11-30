@@ -46,11 +46,13 @@
 	astore_1
 
 ;
-; 005 PRINTFILE'test.txt'
+; 005 LIST
 ;
 L001:
-	ldc	"test.txt"
-	invokestatic	Api/printFileStatement(Ljava/lang/String;)V
+	new	Api
+	dup
+	invokespecial	Api/<init>()V
+	invokestatic	Api/runListStatement()V
 	goto	L002
 L002:
 

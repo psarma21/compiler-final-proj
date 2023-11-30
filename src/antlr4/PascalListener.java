@@ -865,6 +865,16 @@ public interface PascalListener extends ParseTreeListener {
 	 */
 	void exitPrintFileStatement(PascalParser.PrintFileStatementContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link PascalParser#showPhraseStatement}.
+	 * @param ctx the parse tree
+	 */
+	void enterShowPhraseStatement(PascalParser.ShowPhraseStatementContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PascalParser#showPhraseStatement}.
+	 * @param ctx the parse tree
+	 */
+	void exitShowPhraseStatement(PascalParser.ShowPhraseStatementContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link PascalParser#readStatement}.
 	 * @param ctx the parse tree
 	 */

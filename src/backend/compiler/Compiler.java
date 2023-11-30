@@ -316,4 +316,10 @@ public class Compiler extends PascalBaseVisitor<Object> {
         statementCode.emitPrintFile(ctx);
         return null;
     }
+
+    @Override
+    public Object visitShowPhraseStatement(PascalParser.ShowPhraseStatementContext ctx) {
+        statementCode.emitShowStatement(ctx);
+        return null;
+    }
 }

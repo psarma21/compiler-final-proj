@@ -113,7 +113,7 @@ statement : compoundStatement
           | moveStatement
           | copyStatement
           | printFileStatement
-          |
+          | showPhraseStatement
           ;
 
 compoundStatement : BEGIN statementList END ;
@@ -178,7 +178,10 @@ moveStatement    : MOVE stringConstant TO stringConstant ;
 copyStatement    : COPY stringConstant TO stringConstant ;
 printFileStatement  : PRINTFILE stringConstant ;
 
+showPhraseStatement : SHOW stringConstant IN stringConstant ;
+
 // TODO - in, execs, show, replace, open
+
 
 readStatement   : READ readArguments ;
 readlnStatement : READLN readArguments ;
@@ -300,6 +303,7 @@ OPEN         : O P E N ;
 COPY         : C O P Y ;
 PRINTFILE    : P R I N T F I L E ;
 MOVE         : M O V E ;
+SHOW         : S H O W ;
 
 IDENTIFIER : [a-zA-Z][a-zA-Z0-9]* ;
 INTEGER    : [0-9]+ ;

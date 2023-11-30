@@ -2,5 +2,5 @@ program Test;
 
 
 begin
-  PRINTFILE 'test.txt';
+  LIST;
 end.

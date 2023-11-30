@@ -427,9 +427,21 @@ public class StatementGenerator extends CodeGenerator
         // changes directory (path given as input)
     }
 
+    // emitOpen opens a file in its default application
     public void emitOpen(PascalParser.OpenStatementContext openCtx)
     {
-        // opens file (path given as input)
+        Label topLabel  = new Label();
+        Label exitLabel = new Label();
+
+        emitLabel(topLabel);
+
+        String path = openCtx.stringConstant().getText();
+        emit(LDC, "\"" + path.substring(1, path.length()-1) + "\"");
+        emit(INVOKESTATIC, "Api/openStatement(Ljava/lang/String;)V");
+
+        emit(GOTO, exitLabel);
+
+        emitLabel(exitLabel);
     }
 
     // emitMove moves a file to a new location and deletes from old location
@@ -481,6 +493,24 @@ public class StatementGenerator extends CodeGenerator
         String path = printFileCtx.stringConstant().getText();
         emit(LDC, "\"" + path.substring(1, path.length()-1) + "\"");
         emit(INVOKESTATIC, "Api/printFileStatement(Ljava/lang/String;)V");
+
+        emit(GOTO, exitLabel);
+
+        emitLabel(exitLabel);
+    }
+
+    public void emitShowStatement(PascalParser.ShowPhraseStatementContext showPhraseCtx)
+    {
+        Label topLabel  = new Label();
+        Label exitLabel = new Label();
+
+        emitLabel(topLabel);
+
+        String phrase = showPhraseCtx.stringConstant(0).getText();
+        String fileName = showPhraseCtx.stringConstant(1).getText();
+        emit(LDC, "\"" + phrase.substring(1, phrase.length()-1) + "\"");
+        emit(LDC, "\"" + fileName.substring(1, fileName.length()-1) + "\"");
+        emit(INVOKESTATIC, "Api/showPhraseStatement(Ljava/lang/String;Ljava/lang/String;)V");
 
         emit(GOTO, exitLabel);
 

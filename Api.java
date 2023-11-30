@@ -20,7 +20,6 @@ public class Api {
         } else {
             System.out.println("Directory doesn't exist or is not a directory");
         }
-
     }
 
     public static void runListStatement() {
@@ -119,13 +118,24 @@ public class Api {
         }
     }
 
+    public static void openStatement(String file) {
+        // TODO
+    }
+
+    public static void showPhraseStatement(String phrase, String file) {
+
+    }
+
+    public static void replaceStatement(String filePath, String oldPhrase, String newPhrase) {
+        // TODO - Ethan
+    }
+    
     public static void main(String[] args) {
 //        runListStatement();
 //        runPwdStatement();
 //        createFileStatement("test.txt");
 //        createDirStatement("test");
 //        removeFileOrDirStatement("test.txt");
-//        execStatement("MyTestFile.java");
 //        moveStatement("test.txt", "test.txt");
 //        copyStatement("test.txt", "test.txt");
 //        printFileStatement("test.txt");

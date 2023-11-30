@@ -1030,6 +1030,18 @@ public class PascalBaseListener implements PascalListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterShowPhraseStatement(PascalParser.ShowPhraseStatementContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitShowPhraseStatement(PascalParser.ShowPhraseStatementContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterReadStatement(PascalParser.ReadStatementContext ctx) { }
 	/**
 	 * {@inheritDoc}
