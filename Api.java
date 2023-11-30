@@ -1,4 +1,4 @@
-import java.io.File;
+import java.io.*;
 import java.nio.file.*;
 import java.awt.Desktop;
 import java.util.List;
@@ -136,7 +136,25 @@ public class Api {
     }
 
     public static void replaceStatement(String filePath, String oldPhrase, String newPhrase) {
-        // TODO - Ethan
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(filePath));
+            StringBuilder content = new StringBuilder();
+            String line;
+
+            while ((line = reader.readLine()) != null) {
+                content.append(line).append(System.lineSeparator());
+            }
+            reader.close();
+
+            String modifiedContent = content.toString().replace(oldPhrase, newPhrase);
+
+            BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
+            writer.write(modifiedContent);
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Error: unable to replace Strings");
+        }
     }
     
     public static void main(String[] args) {
@@ -149,6 +167,7 @@ public class Api {
 //        copyStatement("test.txt", "test.txt");
 //        printFileStatement("test.txt");
 //        openStatement("test.txt");
+//        replaceStatement("test.txt", "hello", "hola");
     }
 }
 
