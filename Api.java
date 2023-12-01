@@ -325,7 +325,8 @@ public class Api {
         String pythonOutput = "";
 
         try {
-            ProcessBuilder processBuilder = new ProcessBuilder("python", filePath);
+//            ProcessBuilder processBuilder = new ProcessBuilder("python", filePath);
+            ProcessBuilder processBuilder = new ProcessBuilder("/usr/bin/python", filePath);
             Process process = processBuilder.start();
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
@@ -441,14 +442,15 @@ public class Api {
 //        createFileStatement("test.txt");
 //        createDirStatement("test");
 //        removeFileOrDirStatement("test.txt");
-//        execStatement("HelloWorld.java");
+//        execStatement("HelloWorld2.java");
 //        openStatement("test.txt");
 //        moveStatement("test.txt", "test.txt");
 //        copyStatement("test.txt", "test.txt");
 //        printFileStatement("test.txt");
 //        showStatement("hello", "test.txt");
 //        replaceStatement("test.txt", "hello", "hola");
-//        execStatement("EXECTestFiles/HelloWorld.java");
-//        String s = execsStatement("EXECTestFiles/HelloWorld.py"); System.out.println(s);
+//        execStatement("EXECTestFiles/HelloWorld2.java");
+//        String s = execsStatement("EXECTestFiles/HelloWorld2.java"); System.out.println(s);
+//        String t = execsStatement("HelloWorld.java"); System.out.println(t);
     }
 }

@@ -108,7 +108,6 @@ statement : compoundStatement
           | removeFileStatement
           | removeDirStatement
           | execStatement
-          | inStatement
           | openStatement
           | moveStatement
           | copyStatement
@@ -174,7 +173,6 @@ removeDirStatement  : REMOVEDIR stringConstant ;
 execStatement    : EXEC stringConstant ;
 execsStatement   : EXECS stringConstant ;
 
-inStatement   : IN stringConstant '(' statementList ')';
 openStatement    : OPEN stringConstant ;
 moveStatement    : MOVE stringConstant TO stringConstant ;
 copyStatement    : COPY stringConstant TO stringConstant ;
@@ -202,6 +200,7 @@ factor              locals [ Typespec type = null ]
     | characterConstant    # characterFactor
     | stringConstant       # stringFactor
     | functionCall         # functionCallFactor
+    | execsStatement       # execsStatementFactor
     | NOT factor           # notFactor
     | '(' expression ')'   # parenthesizedFactor
     ;

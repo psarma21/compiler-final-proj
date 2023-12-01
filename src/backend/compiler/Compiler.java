@@ -157,6 +157,12 @@ public class Compiler extends PascalBaseVisitor<Object> {
     }
 
     @Override
+    public Object visitExecsStatementFactor(PascalParser.ExecsStatementFactorContext ctx) {
+        statementCode.emitExecs(ctx.execsStatement());
+        return null;
+    }
+
+    @Override
     public Object visitVariable(PascalParser.VariableContext ctx) {
         expressionCode.emitLoadVariable(ctx);
         return null;
@@ -290,12 +296,6 @@ public class Compiler extends PascalBaseVisitor<Object> {
     @Override
     public Object visitExecsStatement(PascalParser.ExecsStatementContext ctx) {
         statementCode.emitExecs(ctx);
-        return null;
-    }
-
-    @Override
-    public Object visitInStatement(PascalParser.InStatementContext ctx) {
-        statementCode.emitIn(ctx);
         return null;
     }
 

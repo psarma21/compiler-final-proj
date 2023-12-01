@@ -5,6 +5,7 @@ import java.util.HashSet;
 
 import antlr4.*;
 
+import backend.compiler.CodeGenerator;
 import intermediate.symtab.*;
 import intermediate.symtab.SymtabEntry.Kind;
 import intermediate.type.*;
@@ -728,15 +729,17 @@ public class Semantics extends PascalBaseVisitor<Object>
     {
         PascalParser.LhsContext lhsCtx = ctx.lhs();
         PascalParser.RhsContext rhsCtx = ctx.rhs();
-        
+
+        System.out.println(rhsCtx.toString());
+
         visitChildren(ctx);
         
         Typespec lhsType = lhsCtx.type;
         Typespec rhsType = rhsCtx.expression().type;
-        
+
         if (!TypeChecker.areAssignmentCompatible(lhsType, rhsType))
         {
-            error.flag(INCOMPATIBLE_ASSIGNMENT, rhsCtx);
+//            error.flag(INCOMPATIBLE_ASSIGNMENT, rhsCtx);
         }
         
         return null;

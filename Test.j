@@ -2,6 +2,7 @@
 .super java/lang/Object
 
 .field private static _sysin Ljava/util/Scanner;
+.field private static x Ljava/lang/String;
 
 ;
 ; Runtime input scanner
@@ -46,23 +47,27 @@
 	astore_1
 
 ;
-; 005 MOVE'HelloWorld.py'to'HelloWorld.py'
+; 006 x:=EXECS'EXECTestFiles/HelloWorld.java'
 ;
 L001:
-	ldc	"HelloWorld.py"
-	ldc	"HelloWorld.py"
-	invokestatic	Api/moveStatement(Ljava/lang/String;Ljava/lang/String;)V
+	ldc	"EXECTestFiles/HelloWorld.java"
+	invokestatic	Api/execsStatement(Ljava/lang/String;)Ljava/lang/String;
 	goto	L002
 L002:
+	putstatic	Test/x Ljava/lang/String;
 ;
-; 006 COPY'test.txt'to'test2.txt'
+; 007 writeln(x)
 ;
-L003:
-	ldc	"test.txt"
-	ldc	"test2.txt"
-	invokestatic	Api/copyStatement(Ljava/lang/String;Ljava/lang/String;)V
-	goto	L004
-L004:
+	getstatic	java/lang/System/out Ljava/io/PrintStream;
+	ldc	"%s\n"
+	iconst_1
+	anewarray	java/lang/Object
+	dup
+	iconst_0
+	getstatic	Test/x Ljava/lang/String;
+	aastore
+	invokevirtual	java/io/PrintStream/printf(Ljava/lang/String;[Ljava/lang/Object;)Ljava/io/PrintStream;
+	pop
 
 	invokestatic	java/time/Instant/now()Ljava/time/Instant;
 	astore_2

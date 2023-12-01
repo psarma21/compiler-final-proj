@@ -1,5 +1,8 @@
-program Test;
+PROGRAM Test;
 
+VAR x : string;
 
-begin
-end.
+BEGIN
+  x := EXECS 'EXECTestFiles/HelloWorld.java';
+  writeln(x);
+END.

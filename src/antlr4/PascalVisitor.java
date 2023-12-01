@@ -502,12 +502,6 @@ public interface PascalVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitExecsStatement(PascalParser.ExecsStatementContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link PascalParser#inStatement}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitInStatement(PascalParser.InStatementContext ctx);
-	/**
 	 * Visit a parse tree produced by {@link PascalParser#openStatement}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -614,6 +608,13 @@ public interface PascalVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitFunctionCallFactor(PascalParser.FunctionCallFactorContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code execsStatementFactor}
+	 * labeled alternative in {@link PascalParser#factor}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExecsStatementFactor(PascalParser.ExecsStatementFactorContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code notFactor}
 	 * labeled alternative in {@link PascalParser#factor}.

@@ -1,10 +1,6 @@
 package backend.compiler;
 
-import java.util.ArrayList;
-import java.util.TreeMap;
-import java.util.Set;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.*;
 
 import antlr4.PascalParser;
 
@@ -115,41 +111,109 @@ public class StatementGenerator extends CodeGenerator
     public void emitCase(PascalParser.CaseStatementContext ctx)
     {
         /***** Complete this method. *****/
-        Label caseBeginLabel = new Label();
-        Label caseBranchBeginLabel = new Label();
-        Label caseBranchIncrementLabel = new Label();
-        Label caseExitLabel = new Label();
+        PascalParser.ExpressionContext exprCtx = ctx.expression();
+        PascalParser.CaseBranchListContext branchListCtx = ctx.caseBranchList();
+        ArrayList<Label> branchLabels = new ArrayList<Label>();
 
-//        int caseBranchIndex = 0;
-//        int caseBranchConstantIndex = 0;
+        branchLabels.add(new Label());  // exit label
 
-        emitLabel(caseBeginLabel);
-        compiler.visit(ctx.expression());
-        emit(GOTO, caseBranchBeginLabel);
+        // Emit code to evaluate the SELECT expression.
+        compiler.visit(exprCtx);
 
-        emitLabel(caseBranchBeginLabel);
-//        compiler.visit(ctx.caseBranchList().caseBranch(caseBranchIndex).caseConstantList().caseConstant(caseBranchConstantIndex));
-//        emit(IFNE, caseBranchBeginLabel);
-//        compiler.visit(ctx.caseBranchList().caseBranch(caseBranchIndex).statement());
-//        emit(GOTO, caseExitLabel);
-        int count = 0;
-        for (PascalParser.CaseBranchContext caseBranch : ctx.caseBranchList().caseBranch()) {
-            System.out.println(count);
-            count++;
-            if (caseBranch.statement() != null) {
-                for (PascalParser.CaseConstantContext caseConstant : caseBranch.caseConstantList().caseConstant()) {
-                    compiler.visit(caseConstant.constant());
+        // Process the select branches.
+        TreeMap<Integer, Label> labelMap = createCaseMap(branchListCtx,
+                branchLabels);
+
+        // Emit code for the LOOKUPSWITCH and the branch statements.
+        emitLookupSwitch(labelMap, branchLabels);
+        emitBranchStatements(branchListCtx, branchLabels);
+    }
+
+    private TreeMap<Integer, Label> createCaseMap(
+            PascalParser.CaseBranchListContext branchListCtx,
+            ArrayList<Label> branchLabels)
+    {
+        TreeMap<Integer, Label> caseMap = new TreeMap<>();
+
+        // Loop over the CASE branches.
+        for (PascalParser.CaseBranchContext branchCtx :
+                branchListCtx.caseBranch())
+        {
+            PascalParser.CaseConstantListContext constListCtx =
+                    branchCtx.caseConstantList();
+
+            if (constListCtx != null)
+            {
+                Label branchLabel = new Label();
+                branchLabels.add(branchLabel);
+
+                // Loop over the CASE constants of each CASE branch.
+                for (PascalParser.CaseConstantContext caseConstCtx :
+                        constListCtx.caseConstant())
+                {
+                    int value = caseConstCtx.value;
+                    caseMap.put(value, branchLabel);
                 }
-
-                compiler.visit(caseBranch.statement());
             }
         }
 
-//        emitLabel(caseBranchIncrementLabel);
-//        caseBranchIndex++;
-//        emit(GOTO, caseBranchBeginLabel);
+        return caseMap;
+    }
 
-        emitLabel(caseExitLabel);
+    private void emitLookupSwitch(TreeMap<Integer, Label> labelMap,
+                                  ArrayList<Label> branchLabels)
+    {
+        emitLine();
+        emit(LOOKUPSWITCH);
+
+        Set<Map.Entry<Integer, Label>> labelSet = labelMap.entrySet();
+        Iterator<Map.Entry<Integer, Label>> it = labelSet.iterator();
+
+        // For each entry, emit the value and its label.
+        while (it.hasNext())
+        {
+            Map.Entry<Integer, Label> entry = it.next();
+            emitLabel(entry.getKey(), entry.getValue());
+        }
+
+        // Emit the default label;
+        emitLabel("default", branchLabels.get(0));
+    }
+
+    /**
+     * Emit code for the branch statements.
+     * @param branchListCtx the CaseBranchListContext.
+     * @param branchLabels the branch labels
+     * @throws PascalCompilerException if an error occurred.
+     */
+    private void emitBranchStatements(
+            PascalParser.CaseBranchListContext branchListCtx,
+            ArrayList<Label> branchLabels)
+    {
+        emitLine();
+
+        // Loop to emit each branch label and then generate code for
+        // the corresponding branch statement.
+        int i = 1;
+        for (PascalParser.CaseBranchContext branchCtx :
+                branchListCtx.caseBranch())
+        {
+            if (branchCtx.caseConstantList() != null)
+            {
+                PascalParser.StatementContext stmtCtx = branchCtx.statement();
+
+                emitLabel(branchLabels.get(i++));
+                compiler.visit(stmtCtx);
+
+                // Branch to the exit label.
+                emit(GOTO, branchLabels.get(0));
+            }
+        }
+
+        // Emit the exit label.
+        emitLabel(branchLabels.get(0));
+
+        emitLine();
     }
 
     /**
@@ -246,14 +310,8 @@ public class StatementGenerator extends CodeGenerator
     public void emitProcedureCall(PascalParser.ProcedureCallStatementContext ctx)
     {
         /***** Complete this method. *****/
-        Label procedureTopLabel  = new Label();
-        Label procedureExitLabel = new Label();
-
-        emitLabel(procedureTopLabel);
-        emitCall(ctx.procedureName().entry, ctx.argumentList());
-        emit(GOTO, procedureExitLabel);
-
-        emitLabel(procedureExitLabel);
+        SymtabEntry routineId = ctx.procedureName().entry;
+        emitCall(routineId, ctx.argumentList());
     }
 
     /**
@@ -263,14 +321,11 @@ public class StatementGenerator extends CodeGenerator
     public void emitFunctionCall(PascalParser.FunctionCallContext ctx)
     {
         /***** Complete this method. *****/
-        Label functionTopLabel  = new Label();
-        Label functionExitLabel = new Label();
+        SymtabEntry routineId = ctx.functionName().entry;
+        emitCall(routineId, ctx.argumentList());
 
-        emitLabel(functionTopLabel);
-        emitCall(ctx.functionName().entry, ctx.argumentList());
-        emit(GOTO, functionExitLabel);
-
-        emitLabel(functionExitLabel);
+        // A function call leaves a value on the operand stack.
+        localStack.increase(1);
     }
 
     /**
@@ -282,28 +337,48 @@ public class StatementGenerator extends CodeGenerator
                           PascalParser.ArgumentListContext argListCtx)
     {
         /***** Complete this method. *****/
-        if (argListCtx != null) {
-            int index = 0;
-            for (PascalParser.ArgumentContext arg : argListCtx.argument()) {
-                compiler.visit(arg);
-                if (!typeDescriptor(arg.expression().type).equals(typeDescriptor(routineId.getRoutineParameters().get(index).getType()))) {
-                    // int-to-float conversion
+        String routineName = routineId.getName();
+        ArrayList<SymtabEntry> parmIds = routineId.getRoutineParameters();
+
+        // Emit code to evaluate any arguments.
+        int i = 0;
+        if (argListCtx != null)
+        {
+            for (PascalParser.ArgumentContext argCtx : argListCtx.argument())
+            {
+                PascalParser.ExpressionContext exprCtx = argCtx.expression();
+                compiler.visit(exprCtx);
+
+                if (   (parmIds.get(i++).getType() == Predefined.realType)
+                        && (exprCtx.type == Predefined.integerType))
+                {
                     emit(I2F);
                 }
-                index++;
             }
         }
 
-        /***** Complete this method. *****/
-        String classPath = programName + "/" + routineId.getName();
-        String typeSignature = "(";
-        for (SymtabEntry s : routineId.getRoutineParameters()) {
-            typeSignature += typeDescriptor(s.getType());
-        }
-        typeSignature += ")" + typeDescriptor(routineId);
+        StringBuilder buffer = new StringBuilder();
 
-        String invokeStaticInput = classPath + typeSignature;
-        emit(INVOKESTATIC, invokeStaticInput);
+        // Procedure or function name.
+        buffer.append(programName);
+        buffer.append("/");
+        buffer.append(routineName);
+        buffer.append("(");
+
+        // Parameter and return type descriptors.
+        if (argListCtx != null)
+        {
+            for (SymtabEntry parmId : parmIds)
+            {
+                buffer.append(typeDescriptor(parmId));
+            }
+        }
+        buffer.append(")");
+        buffer.append(typeDescriptor(routineId));
+
+        // Generate a call to the routine.
+        emit(INVOKESTATIC, buffer.toString());
+        if (argListCtx != null) localStack.decrease(parmIds.size());
     }
 
     // emitList runs -ls on a given path. If no input is given it runs on the current path.
@@ -437,13 +512,18 @@ public class StatementGenerator extends CodeGenerator
     // emitExecs compiles and runs a file (Java, C, Python) and stores the value
     public void emitExecs(PascalParser.ExecsStatementContext execsCtx)
     {
+        Label topLabel  = new Label();
+        Label exitLabel = new Label();
 
-    }
+        emitLabel(topLabel);
 
-    // emitIn temporarily changes directories into the given path and executes the statements inside it
-    public void emitIn(PascalParser.InStatementContext inCtx)
-    {
+        String path = execsCtx.stringConstant().getText();
+        emit(LDC, "\"" + path.substring(1, path.length()-1) + "\"");
+        emit(INVOKESTATIC, "Api/execsStatement(Ljava/lang/String;)Ljava/lang/String;");
 
+        emit(GOTO, exitLabel);
+
+        emitLabel(exitLabel);
     }
 
     // emitOpen opens a file in its default application

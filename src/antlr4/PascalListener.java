@@ -825,16 +825,6 @@ public interface PascalListener extends ParseTreeListener {
 	 */
 	void exitExecsStatement(PascalParser.ExecsStatementContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link PascalParser#inStatement}.
-	 * @param ctx the parse tree
-	 */
-	void enterInStatement(PascalParser.InStatementContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link PascalParser#inStatement}.
-	 * @param ctx the parse tree
-	 */
-	void exitInStatement(PascalParser.InStatementContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link PascalParser#openStatement}.
 	 * @param ctx the parse tree
 	 */
@@ -1014,6 +1004,18 @@ public interface PascalListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitFunctionCallFactor(PascalParser.FunctionCallFactorContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code execsStatementFactor}
+	 * labeled alternative in {@link PascalParser#factor}.
+	 * @param ctx the parse tree
+	 */
+	void enterExecsStatementFactor(PascalParser.ExecsStatementFactorContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code execsStatementFactor}
+	 * labeled alternative in {@link PascalParser#factor}.
+	 * @param ctx the parse tree
+	 */
+	void exitExecsStatementFactor(PascalParser.ExecsStatementFactorContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code notFactor}
 	 * labeled alternative in {@link PascalParser#factor}.
