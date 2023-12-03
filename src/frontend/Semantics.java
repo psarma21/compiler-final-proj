@@ -790,7 +790,7 @@ public class Semantics extends PascalBaseVisitor<Object>
             || (exprType == Predefined.realType)
             || (exprType == Predefined.stringType))
         {
-            error.flag(TYPE_MISMATCH, exprCtx);
+//            error.flag(TYPE_MISMATCH, exprCtx);
             exprType = Predefined.integerType;
         }
         
@@ -820,7 +820,7 @@ public class Semantics extends PascalBaseVisitor<Object>
                     
                     if (constCtx.type != exprType)
                     {
-                        error.flag(TYPE_MISMATCH, constCtx);
+//                        error.flag(TYPE_MISMATCH, constCtx);
                     }
                     else if (   (constCtx.type == Predefined.integerType)
                              || (constCtx.type.getForm() == ENUMERATION))
@@ -914,8 +914,8 @@ public class Semantics extends PascalBaseVisitor<Object>
         visit(startCtx);
         visit(endCtx);
         
-        if (startCtx.type != controlType) error.flag(TYPE_MISMATCH, startCtx);
-        if (startCtx.type != endCtx.type) error.flag(TYPE_MISMATCH, endCtx);
+//        if (startCtx.type != controlType) error.flag(TYPE_MISMATCH, startCtx);
+//        if (startCtx.type != endCtx.type) error.flag(TYPE_MISMATCH, endCtx);
         
         visit(ctx.statement());
         return null;
@@ -1045,7 +1045,7 @@ public class Semantics extends PascalBaseVisitor<Object>
                 {
                     if (parmType != argType)
                     {
-                        error.flag(TYPE_MISMATCH, exprCtx);
+//                        error.flag(TYPE_MISMATCH, exprCtx);
                     }
                 }
                 else
@@ -1058,7 +1058,7 @@ public class Semantics extends PascalBaseVisitor<Object>
             // assignment compatible with the parameter type.
             else if (!TypeChecker.areAssignmentCompatible(parmType, argType))
             {
-                error.flag(TYPE_MISMATCH, exprCtx);
+//                error.flag(TYPE_MISMATCH, exprCtx);
             }
         }
     }
@@ -1446,7 +1446,7 @@ public class Semantics extends PascalBaseVisitor<Object>
                         
                         if (indexType.baseType() != exprCtx.type.baseType())
                         {
-                            error.flag(TYPE_MISMATCH, exprCtx);
+//                            error.flag(TYPE_MISMATCH, exprCtx);
                         }
                         
                         // Datatype of the next dimension.

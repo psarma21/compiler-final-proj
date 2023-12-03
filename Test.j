@@ -2,7 +2,7 @@
 .super java/lang/Object
 
 .field private static _sysin Ljava/util/Scanner;
-.field private static x Ljava/lang/String;
+.field private static x I
 
 ;
 ; Runtime input scanner
@@ -47,27 +47,60 @@
 	astore_1
 
 ;
-; 006 x:=EXECS'EXECTestFiles/HelloWorld.java'
+; 006 x:=EXECS'EXECTestFiles/Demo.java'
 ;
 L001:
-	ldc	"EXECTestFiles/HelloWorld.java"
-	invokestatic	Api/execsStatement(Ljava/lang/String;)Ljava/lang/String;
+	ldc	"EXECTestFiles/Demo.java"
+	invokestatic	Api/execsStatement(Ljava/lang/String;)I
 	goto	L002
 L002:
-	putstatic	Test/x Ljava/lang/String;
+	putstatic	Test/x I
 ;
 ; 007 writeln(x)
 ;
 	getstatic	java/lang/System/out Ljava/io/PrintStream;
-	ldc	"%s\n"
+	ldc	"%d\n"
 	iconst_1
 	anewarray	java/lang/Object
 	dup
 	iconst_0
-	getstatic	Test/x Ljava/lang/String;
+	getstatic	Test/x I
+	invokestatic	java/lang/Integer/valueOf(I)Ljava/lang/Integer;
 	aastore
 	invokevirtual	java/io/PrintStream/printf(Ljava/lang/String;[Ljava/lang/Object;)Ljava/io/PrintStream;
 	pop
+;
+; 009 CASExOF1:OPEN'cat.jpeg';2:OPEN'cat.jpeg';END
+;
+	getstatic	Test/x I
+
+	lookupswitch
+	  1: L004
+	  2: L005
+	  default: L003
+
+L004:
+;
+; 010 OPEN'cat.jpeg'
+;
+L006:
+	ldc	"cat.jpeg"
+	invokestatic	Api/openStatement(Ljava/lang/String;)V
+	goto	L007
+L007:
+	goto	L003
+L005:
+;
+; 011 OPEN'cat.jpeg'
+;
+L008:
+	ldc	"cat.jpeg"
+	invokestatic	Api/openStatement(Ljava/lang/String;)V
+	goto	L009
+L009:
+	goto	L003
+L003:
+
 
 	invokestatic	java/time/Instant/now()Ljava/time/Instant;
 	astore_2

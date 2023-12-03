@@ -217,7 +217,7 @@ public class Api {
         return "";
     }
 
-    public static String execsStatement(String filePath) {
+    public static int execsStatement(String filePath) {
         String fileType = getFileType(filePath);
         String output = "";
 
@@ -241,7 +241,9 @@ public class Api {
             System.out.println("Error: Invalid file name");
         }
 
-        return output;
+        output = output.substring(0,1);
+        int i = Integer.parseInt(output);
+        return i;
     }
 
     public static String execsJava(String filePath) {
@@ -414,7 +416,7 @@ public class Api {
         }
     }
 
-    public static void replaceStatement(String filePath, String oldPhrase, String newPhrase) {
+    public static void replaceStatement(String oldPhrase, String filePath, String newPhrase) {
         try {
             BufferedReader reader = new BufferedReader(new FileReader(filePath));
             StringBuilder content = new StringBuilder();
@@ -430,6 +432,8 @@ public class Api {
             BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
             writer.write(modifiedContent);
             writer.close();
+
+            System.out.println("File modified successfully!");
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("Error: unable to replace Strings");
@@ -449,8 +453,11 @@ public class Api {
 //        printFileStatement("test.txt");
 //        showStatement("hello", "test.txt");
 //        replaceStatement("test.txt", "hello", "hola");
-//        execStatement("EXECTestFiles/HelloWorld2.java");
-//        String s = execsStatement("EXECTestFiles/HelloWorld2.java"); System.out.println(s);
+//        execStatement("EXECTestFiles/HelloWorld.java");
+//        int s = execsStatement("EXECTestFiles/Demo.java"); System.out.println(s);
+        int a = execsStatement("EXECTestFiles/Demo.java");
+        System.out.println(a);
+//        System.out.println((Object)execsStatement("EXECTestFiles/Demo.java").getClass().getSimpleName());
 //        String t = execsStatement("HelloWorld.java"); System.out.println(t);
     }
 }

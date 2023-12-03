@@ -68,7 +68,7 @@ Then try building.
 
 -->
 
-<project name="Jasmin" default="usage" basedir=".">
+<project name="Jasmin" default="usage" basedir="">
 
   <!-- =================================================================== -->
   <!-- Initialization target                                               -->
@@ -89,10 +89,10 @@ Then try building.
     <property name="packages" value="jasmin.*,jas.*,scm.*"/>
 
     <!-- Define the source directories -->
-    <property name="root.dir" value="./"/>
-    <property name="docs.dir" value="${root.dir}/docs"/>
-    <property name="lib.dir" value="${root.dir}/lib"/>
-    <property name="src.dir" value="${root.dir}/src"/>
+    <property name="root.dir" value="/"/>
+    <property name="docs.dir" value="/EXECTestFiles/jasmin-2.4/docs"/>
+    <property name="lib.dir" value="/EXECTestFiles/jasmin-2.4/lib"/>
+    <property name="src.dir" value="/EXECTestFiles/jasmin-2.4/src"/>
 
     <!-- Define the source build directories -->
     <property name="build.dir" value="${root.dir}/build"/>
@@ -173,7 +173,7 @@ Then try building.
   <!-- Creates the jasmin.jar in ./build                                   -->
   <!-- =================================================================== -->
   <target name="jasmin" depends="compile-jasmin">
-    <jar jarfile="${root.dir}/${name}.jar"
+    <jar jarfile="/EXECTestFiles/jasmin-2.4/jasmin.jar"
          basedir="${build.jasmin.dest}"
          manifest="${build.jasmin.src}/jasmin.mf"
          includes="jasmin/*.class,jas/*.class,java_cup/runtime/*.class"/>
@@ -194,7 +194,7 @@ Then try building.
   </target>
 
   <target name="java_cup" depends="compile-java_cup">
-    <jar jarfile="${root.dir}/lib/java_cup.jar"
+    <jar jarfile="/EXECTestFiles/jasmin-2.4/lib/java_cup.jar"
          basedir="${build.jasmin.dest}"
          includes="java_cup/*.class,java_cup/runtime/*.class"/>
   </target>
@@ -207,7 +207,7 @@ Then try building.
   <target name="parser" depends="java_cup">
     <java classname="java_cup.Main" output="test.java" input="src/jasmin/parser.cup">
 		<classpath>
-			<pathelement location="${root.dir}/lib/java_cup.jar"/>
+			<pathelement location="/EXECTestFiles/jasmin-2.4/lib/java_cup.jar"/>
         </classpath>
     </java>
 	<move file="parser.java" tofile="src/jasmin/parser.java"/>
@@ -249,7 +249,7 @@ Then try building.
     <mkdir dir="${sourcedist.dir}"/>
 
     <copy todir="${sourcedist.dir}">
-      <fileset dir="${root.dir}"/>
+      <fileset dir="/EXECTestFiles/jasmin-2.4"/>
     </copy>
 
     <!-- Now delete what we dont want, probably a better way to do this -->
@@ -270,7 +270,7 @@ Then try building.
     <mkdir dir="${compiledist.dir}"/>
 
     <copy todir="${compiledist.dir}">
-      <fileset dir="${root.dir}"/>
+      <fileset dir="/EXECTestFiles/jasmin-2.4"/>
     </copy>
 
     <!-- Now delete what we dont want, probably a better way to do this -->

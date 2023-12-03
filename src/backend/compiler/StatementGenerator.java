@@ -110,7 +110,6 @@ public class StatementGenerator extends CodeGenerator
      */
     public void emitCase(PascalParser.CaseStatementContext ctx)
     {
-        /***** Complete this method. *****/
         PascalParser.ExpressionContext exprCtx = ctx.expression();
         PascalParser.CaseBranchListContext branchListCtx = ctx.caseBranchList();
         ArrayList<Label> branchLabels = new ArrayList<Label>();
@@ -129,6 +128,12 @@ public class StatementGenerator extends CodeGenerator
         emitBranchStatements(branchListCtx, branchLabels);
     }
 
+    /**
+     * Process the CASE map from the CASE branches.
+     * @param branchListCtx the CaseBranchListContext.
+     * @param branchLabels the branch labels.
+     * @return the array list of table entries.
+     */
     private TreeMap<Integer, Label> createCaseMap(
             PascalParser.CaseBranchListContext branchListCtx,
             ArrayList<Label> branchLabels)
@@ -160,6 +165,11 @@ public class StatementGenerator extends CodeGenerator
         return caseMap;
     }
 
+    /**
+     * Emit code for the LOOKUPSWITCH instruction.
+     * @param entries the table entries.
+     * @param branchLabels the branch labels.
+     */
     private void emitLookupSwitch(TreeMap<Integer, Label> labelMap,
                                   ArrayList<Label> branchLabels)
     {
@@ -215,6 +225,7 @@ public class StatementGenerator extends CodeGenerator
 
         emitLine();
     }
+
 
     /**
      * Emit code for a REPEAT statement.
@@ -519,7 +530,7 @@ public class StatementGenerator extends CodeGenerator
 
         String path = execsCtx.stringConstant().getText();
         emit(LDC, "\"" + path.substring(1, path.length()-1) + "\"");
-        emit(INVOKESTATIC, "Api/execsStatement(Ljava/lang/String;)Ljava/lang/String;");
+        emit(INVOKESTATIC, "Api/execsStatement(Ljava/lang/String;)I");
 
         emit(GOTO, exitLabel);
 
