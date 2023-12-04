@@ -70,34 +70,45 @@ L002:
 	invokevirtual	java/io/PrintStream/printf(Ljava/lang/String;[Ljava/lang/Object;)Ljava/io/PrintStream;
 	pop
 ;
-; 009 CASExOF1:OPEN'cat.jpeg';2:OPEN'cat.jpeg';END
+; 010 CASExOF1:OPEN'cat.jpeg';2:OPEN'dog.jpeg';3:OPEN'mouse.jpeg';END
 ;
 	getstatic	Test/x I
 
 	lookupswitch
 	  1: L004
 	  2: L005
+	  3: L006
 	  default: L003
 
 L004:
 ;
-; 010 OPEN'cat.jpeg'
+; 011 OPEN'cat.jpeg'
 ;
-L006:
+L007:
 	ldc	"cat.jpeg"
 	invokestatic	Api/openStatement(Ljava/lang/String;)V
-	goto	L007
-L007:
+	goto	L008
+L008:
 	goto	L003
 L005:
 ;
-; 011 OPEN'cat.jpeg'
+; 012 OPEN'dog.jpeg'
 ;
-L008:
-	ldc	"cat.jpeg"
-	invokestatic	Api/openStatement(Ljava/lang/String;)V
-	goto	L009
 L009:
+	ldc	"dog.jpeg"
+	invokestatic	Api/openStatement(Ljava/lang/String;)V
+	goto	L010
+L010:
+	goto	L003
+L006:
+;
+; 013 OPEN'mouse.jpeg'
+;
+L011:
+	ldc	"mouse.jpeg"
+	invokestatic	Api/openStatement(Ljava/lang/String;)V
+	goto	L012
+L012:
 	goto	L003
 L003:
 
