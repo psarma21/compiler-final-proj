@@ -269,7 +269,13 @@ public class Api {
              }
 
              File javaFile = new File(filePath);
-             String directory = javaFile.getParent();
+             String directory;
+
+             if (javaFile.getParent() != null)
+                directory = javaFile.getParent();
+             else
+                directory = ".";
+
 
              ProcessBuilder processBuilder = new ProcessBuilder("java", getClassNameFromFilePath(filePath));
              processBuilder.directory(new File(directory));
@@ -464,7 +470,7 @@ public class Api {
 //        replaceStatement("test.txt", "hello", "hola");
         //execStatement("EXECTestFiles/KYLE_DELETELATER.cpp");
         //execStatement("KYLE_DELETELATER.java");
-        int a = execsStatement("EXECTestFiles/KYLE_DELETELATER.java");
+        int a = execsStatement("KYLE_DELETELATER.java");
         System.out.println(a);
 //        System.out.println((Object)execsStatement("EXECTestFiles/Demo.java").getClass().getSimpleName());
 //        String t = execsStatement("HelloWorld.java"); System.out.println(t);
