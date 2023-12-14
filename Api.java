@@ -127,12 +127,12 @@ public class Api {
 
     private static void execCpp(String filePath) {
         try {
-            ProcessBuilder compileProcess = new ProcessBuilder("g++", filePath, "-o", "output");
+            ProcessBuilder compileProcess = new ProcessBuilder("g++", filePath, "-o", "cppoutput");
             Process compile = compileProcess.start();
             int compileExitCode = compile.waitFor();
 
             if (compileExitCode == 0) {
-                ProcessBuilder executeProcess = new ProcessBuilder("./output");
+                ProcessBuilder executeProcess = new ProcessBuilder("./cppoutput");
                 Process execute = executeProcess.start();
 
                 BufferedReader reader = new BufferedReader(new InputStreamReader(execute.getInputStream()));
@@ -184,15 +184,24 @@ public class Api {
         try {
             // classFileDirectory only takes the in directory, not the actual path to the .class
             File f = new File(filePath);
-            File classFileDirectory = new File(f.getParent());
+            File classFileDirectory;
+            String className;
+            URLClassLoader classLoader;
 
-            String className = getClassNameFromFilePath(filePath);
+            if (f.getParent() != null) {
+                // class file located in a directory somewhere
+                classFileDirectory = new File(f.getParent());
+                className = getClassNameFromFilePath(filePath);
+                classLoader = URLClassLoader.newInstance(new URL[]{classFileDirectory.toURI().toURL()});
+            } else {
+                // class file located inside the root directory
+                className = getClassNameFromFilePath(filePath);
+                classLoader = URLClassLoader.newInstance(new URL[]{new File(".").toURI().toURL()});
 
-            URLClassLoader classLoader = URLClassLoader.newInstance(new URL[]{classFileDirectory.toURI().toURL()});
+            }
+
             Class<?> clazz = Class.forName(className, true, classLoader);
-
             Method mainMethod = clazz.getMethod("main", String[].class);
-
             String[] params = {};
             mainMethod.invoke(null, (Object) params);
         } catch (Exception e) {
@@ -287,13 +296,13 @@ public class Api {
         String cppOutput = "";
 
         try {
-            ProcessBuilder compileProcess = new ProcessBuilder("g++", filePath, "-o", "output");
+            ProcessBuilder compileProcess = new ProcessBuilder("g++", filePath, "-o", "cppoutput");
             Process compile = compileProcess.start();
             int compileExitCode = compile.waitFor();
 
             if (compileExitCode == 0) {
                 // If compilation is successful, execute the compiled program
-                ProcessBuilder executeProcess = new ProcessBuilder("./output");
+                ProcessBuilder executeProcess = new ProcessBuilder("./cppoutput");
                 Process execute = executeProcess.start();
 
                 // Capture the output of the executed C++ program
@@ -453,9 +462,9 @@ public class Api {
 //        printFileStatement("test.txt");
 //        showStatement("hello", "test.txt");
 //        replaceStatement("test.txt", "hello", "hola");
-//        execStatement("EXECTestFiles/HelloWorld.java");
-//        int s = execsStatement("EXECTestFiles/Demo.java"); System.out.println(s);
-        int a = execsStatement("EXECTestFiles/Demo.java");
+        //execStatement("EXECTestFiles/KYLE_DELETELATER.cpp");
+        //execStatement("KYLE_DELETELATER.java");
+        int a = execsStatement("KYLE_DELETELATER.java");
         System.out.println(a);
 //        System.out.println((Object)execsStatement("EXECTestFiles/Demo.java").getClass().getSimpleName());
 //        String t = execsStatement("HelloWorld.java"); System.out.println(t);
