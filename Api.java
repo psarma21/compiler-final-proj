@@ -409,10 +409,10 @@ public class Api {
 //        printFileStatement("test.txt");
 //        showStatement("hello", "test.txt");
 //        replaceStatement("test.txt", "hello", "hola");
-        //execStatement("EXECTestFiles/KYLE_DELETELATER.cpp");
+        //execStatement("EXECTestFiles/HelloWorld.cpp");
         //execStatement("KYLE_DELETELATER.java");
-        int a = execsStatement("KYLE_DELETELATER.java");
-        System.out.println(a);
+//        int a = execsStatement("KYLE_DELETELATER.java");
+//        System.out.println(a);
 //        System.out.println((Object)execsStatement("EXECTestFiles/Demo.java").getClass().getSimpleName());
 //        String t = execsStatement("HelloWorld.java"); System.out.println(t);
     }
