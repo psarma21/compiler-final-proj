@@ -250,7 +250,7 @@ public class Api {
             System.out.println("Error: Invalid file name");
         }
 
-        output = output.substring(0,1);
+        output = output.substring(0,output.length()-1);
         int i = Integer.parseInt(output);
         return i;
     }
