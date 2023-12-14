@@ -103,9 +103,6 @@ public class Api {
                 case "cpp":
                     execCpp(filePath);
                     break;
-                case "py":
-                    execPython(filePath);
-                    break;
                 default:
                     System.out.println("Unknown file type");
                     break;
@@ -147,29 +144,6 @@ public class Api {
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Error: unable to execute C++ file.");
-        }
-    }
-
-    private static void execPython(String filePath) {
-        try {
-            ProcessBuilder processBuilder = new ProcessBuilder("python", filePath);
-            Process process = processBuilder.start();
-
-            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-            String line;
-
-            while ((line = reader.readLine()) != null) {
-                System.out.println(line);
-            }
-            reader.close();
-
-            int exitCode = process.waitFor();
-            if (exitCode != 0)
-                System.out.println("Python script execution failed.");
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Error: unable to execute Python file.");
         }
     }
 
@@ -237,9 +211,6 @@ public class Api {
                     break;
                 case "cpp":
                     output = execsCpp(filePath);
-                    break;
-                case "py":
-                    output = execsPython(filePath);
                     break;
                 default:
                     System.out.println("Unknown file type");
@@ -336,36 +307,6 @@ public class Api {
         }
 
         return cppOutput;
-    }
-
-    public static String execsPython(String filePath) {
-        String pythonOutput = "";
-
-        try {
-//            ProcessBuilder processBuilder = new ProcessBuilder("python", filePath);
-            ProcessBuilder processBuilder = new ProcessBuilder("/usr/bin/python", filePath);
-            Process process = processBuilder.start();
-
-            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-            StringBuilder output = new StringBuilder();
-            String line;
-
-            while ((line = reader.readLine()) != null) {
-                output.append(line).append("\n");
-            }
-
-            int exitCode = process.waitFor(); // Wait for the process to finish
-            if (exitCode == 0) {
-                pythonOutput = output.toString();
-            } else {
-                System.out.println("Python script execution failed.");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Error: unable to store Python output into variable.");
-        }
-
-        return pythonOutput;
     }
 
     public static void openStatement(String file) {
