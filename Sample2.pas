@@ -3,10 +3,10 @@ program Sample2;
 
 
 begin
-  EXEC 'EXECTestFiles/FixMe.java';
+  EXEC 'test-files/FixMe.java';
 
-  SHOW 'peint' in 'EXECTestFiles/FixMe.java';
-  REPLACE 'peint' in 'EXECTestFiles/FixMe.java' to 'print';
+  SHOW 'peint' in 'test-files/FixMe.java';
+  REPLACE 'peint' in 'test-files/FixMe.java' to 'print';
 
-  EXEC 'EXECTestFiles/FixMe.java';
+  EXEC 'test-files/FixMe.java';
 end.

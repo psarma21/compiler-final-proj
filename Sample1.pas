@@ -7,7 +7,7 @@ procedure makeFirstFile;
         PRINTPATH;
         CREATEDIR 'MyFolder';
 
-        COPY 'EXECTestFiles/HelloWorld.java' 'MyFolder/HelloWorld.java';
+        COPY 'test-files/HelloWorld.java' TO 'MyFolder/HelloWorld.java';
         LIST;
         PRINTFILE 'MyFolder/HelloWorld.java';
         EXEC 'MyFolder/HelloWorld.java';
